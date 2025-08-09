@@ -1,0 +1,53 @@
+{
+  "name": "AI Healthcare Scheduler",
+  "description": "A comprehensive AI-powered healthcare appointment scheduling system with Indian localization",
+  "repository": "https://github.com/yourusername/ai-healthcare-scheduler",
+  "logo": "https://cdn-icons-png.flaticon.com/512/2382/2382533.png",
+  "keywords": ["healthcare", "ai", "scheduling", "india", "medical", "appointment"],
+  "image": "heroku/nodejs",
+  "stack": "heroku-22",
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  },
+  "env": {
+    "NODE_ENV": {
+      "description": "Node.js environment",
+      "value": "production"
+    },
+    "OPENAI_API_KEY": {
+      "description": "OpenAI API key for AI features",
+      "required": true
+    },
+    "ELEVENLABS_API_KEY": {
+      "description": "ElevenLabs API key for voice synthesis",
+      "required": true
+    },
+    "RAZORPAY_KEY_ID": {
+      "description": "Razorpay Key ID for payment processing",
+      "required": false
+    },
+    "RAZORPAY_KEY_SECRET": {
+      "description": "Razorpay Key Secret for payment processing",
+      "required": false
+    }
+  },
+  "scripts": {
+    "postdeploy": "echo 'AI Healthcare Scheduler deployed successfully!'"
+  },
+  "addons": [
+    {
+      "plan": "heroku-postgresql:mini",
+      "options": {
+        "version": "14"
+      }
+    }
+  ]
+}
