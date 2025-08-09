@@ -1602,28 +1602,28 @@
             <div class="modal-body">
                 <div class="payment-options">
                     <div class="payment-option" onclick="processRazorpayPayment()">
-                        <img src="image.png" alt="Hospital" style="width: 50px; height: 50px; border-radius: 8px;">
+                        <div style="font-size: 3rem; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">💳</div>
                         <div>
-                            <h3>Razorpay Payment</h3>
+                            <h3>💳 Razorpay Payment</h3>
                             <p>Secure online payment with UPI, Cards, Net Banking</p>
                         </div>
-                        <i class="fas fa-arrow-right"></i>
+                        <span style="font-size: 1.2rem;">➡️</span>
                     </div>
                     <div class="payment-option" onclick="showUPIPayment()">
-                        <i class="fab fa-google-pay" style="font-size: 2rem; color: #4285f4;"></i>
+                        <div style="font-size: 3rem; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">📱</div>
                         <div>
-                            <h3>UPI Payment</h3>
+                            <h3>📱 UPI Payment</h3>
                             <p>Pay with Google Pay, PhonePe, Paytm</p>
                         </div>
-                        <i class="fas fa-arrow-right"></i>
+                        <span style="font-size: 1.2rem;">➡️</span>
                     </div>
                     <div class="payment-option" onclick="showCardPayment()">
-                        <i class="fas fa-credit-card" style="font-size: 2rem; color: #1e40af;"></i>
+                        <div style="font-size: 3rem; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">💳</div>
                         <div>
-                            <h3>Card Payment</h3>
+                            <h3>💳 Card Payment</h3>
                             <p>Debit Card, Credit Card</p>
                         </div>
-                        <i class="fas fa-arrow-right"></i>
+                        <span style="font-size: 1.2rem;">➡️</span>
                     </div>
                 </div>
             </div>
@@ -2789,9 +2789,8 @@ You can book an appointment with any of our doctors through the "🤖 Book Appoi
                 key: 'rzp_test_demo', // Demo key
                 amount: window.appointmentTotal * 100, // Amount in paise
                 currency: 'INR',
-                name: 'Hospital Scheduler',
+                name: '🏥 AI Hospital Scheduler',
                 description: `Appointment with Dr. ${window.currentAppointment.doctorName}`,
-                image: 'image.png',
                 handler: function(response) {
                     showToast('Payment Successful', `Payment ID: ${response.razorpay_payment_id}`, 'success');
                     closePaymentModal();
