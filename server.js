@@ -611,12 +611,12 @@ app.get('/api/doctors', (req, res) => {
     );
   }
   
-  res.json({ success: true, doctors: filteredDoctors });
+  res.json(filteredDoctors);
 });
 
 // Get locations
 app.get('/api/locations', (req, res) => {
-  res.json({ success: true, locations });
+  res.json(locations);
 });
 
 // Advanced AI Symptom Analysis

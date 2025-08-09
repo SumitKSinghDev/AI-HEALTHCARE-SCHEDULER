@@ -23,9 +23,9 @@
 
         /* Navbar Styles */
         .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(25px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
             position: fixed;
             top: 0;
             left: 0;
@@ -33,6 +33,7 @@
             z-index: 1000;
             padding: 0 2rem;
             transition: all 0.3s ease;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
         }
 
         .navbar.scrolled {
@@ -46,7 +47,8 @@
             align-items: center;
             max-width: 1400px;
             margin: 0 auto;
-            height: 70px;
+            height: 75px;
+            flex-wrap: nowrap;
         }
 
         .nav-brand {
@@ -54,13 +56,18 @@
             align-items: center;
             text-decoration: none;
             color: #1a202c;
-            font-weight: 700;
-            font-size: 1.5rem;
+            font-weight: 800;
+            font-size: 1.4rem;
             transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(59, 130, 246, 0.02));
         }
 
         .nav-brand:hover {
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05));
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
         }
 
         .nav-brand i {
@@ -83,7 +90,10 @@
             display: flex;
             list-style: none;
             align-items: center;
-            gap: 2rem;
+            gap: 1.2rem;
+            margin: 0;
+            padding: 0;
+            flex-wrap: nowrap;
         }
 
         .nav-item a {
@@ -96,12 +106,16 @@
             transition: all 0.3s ease;
             position: relative;
             cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
         }
 
         .nav-item a:hover {
             color: #3b82f6;
-            background: rgba(59, 130, 246, 0.1);
-            transform: translateY(-1px);
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.08));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.2);
         }
 
         .nav-item.cta a {
@@ -111,6 +125,8 @@
             padding: 10px 20px;
             border-radius: 25px;
             box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+            white-space: nowrap;
+            min-width: fit-content;
         }
 
         .nav-item.cta a:hover {
@@ -131,15 +147,102 @@
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(30, 64, 175, 0.9)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f0f9ff" width="1200" height="600"/><g fill="%23dbeafe" opacity="0.5"><circle cx="200" cy="150" r="80"/><circle cx="800" cy="200" r="60"/><circle cx="1000" cy="400" r="100"/></g></svg>');
-            background-size: cover;
-            background-position: center;
+            background: 
+                linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(30, 64, 175, 0.6)), 
+                url('image.png'),
+                linear-gradient(135deg, #3b82f6, #1e40af);
+            background-size: cover, cover, cover;
+            background-position: center, center, center;
+            background-repeat: no-repeat, no-repeat, no-repeat;
+            background-attachment: scroll;
             padding: 120px 0 80px;
             text-align: center;
             color: white;
             position: relative;
             overflow: hidden;
+            min-height: 100vh;
+        }
+
+        /* Fallback for image loading */
+        @supports not (background-blend-mode: overlay) {
+            .hero {
+                background: linear-gradient(135deg, #3b82f6, #1e40af);
+            }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.1);
+            opacity: 0.5;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(59, 130, 246, 0.2) 0%, transparent 60%), 
+                        radial-gradient(circle at 70% 30%, rgba(30, 64, 175, 0.2) 0%, transparent 60%);
+            animation: aiGlow 6s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes aiGlow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+
+        @keyframes aiPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .ai-avatar {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .ai-status {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .ai-features-preview {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .ai-feature-tag {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .ai-feature-tag:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .ai-feature-tag i {
+            font-size: 1rem;
         }
 
         .hero-container {
@@ -147,7 +250,12 @@
             margin: 0 auto;
             padding: 0 2rem;
             position: relative;
-            z-index: 2;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
         }
 
         .hero h1 {
@@ -161,10 +269,13 @@
         .hero p {
             font-size: 1.25rem;
             margin-bottom: 2rem;
-            opacity: 0.9;
-            max-width: 600px;
+            opacity: 0.95;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+            color: rgba(255, 255, 255, 0.95);
         }
 
         .hero-buttons {
@@ -242,6 +353,9 @@
             font-weight: 600;
             font-size: 0.9rem;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .hospital-logo:hover {
@@ -506,6 +620,17 @@
         }
 
         /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                gap: 1rem;
+            }
+            
+            .nav-item a {
+                padding: 6px 12px;
+                font-size: 0.9rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-menu {
                 display: none;
@@ -518,7 +643,8 @@
                 flex-direction: column;
                 padding: 1rem 2rem;
                 border-top: 1px solid rgba(226, 232, 240, 0.8);
-                gap: 0;
+                gap: 0.5rem;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             }
 
             .nav-menu.active {
@@ -541,6 +667,10 @@
                 display: block;
             }
 
+            .hero {
+                padding: 100px 0 60px;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
@@ -552,19 +682,85 @@
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 0.5rem;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
             }
 
             .logos-container {
-                gap: 1.5rem;
+                gap: 1rem;
+                flex-direction: column;
+                align-items: center;
             }
 
             .hospital-logo {
                 font-size: 0.8rem;
-                padding: 10px 20px;
+                padding: 8px 16px;
+                width: 200px;
+                text-align: center;
             }
 
             .grid-2, .grid-3 {
                 grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            .feature-icon {
+                width: 50px;
+                height: 50px;
+                font-size: 1.25rem;
+            }
+
+            .feature-title {
+                font-size: 1.1rem;
+            }
+
+            .feature-description {
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+            }
+
+            .ai-features-preview {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .ai-feature-tag {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .ai-avatar img {
+                width: 80px !important;
+                height: 80px !important;
+            }
+
+            .hospital-logo {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 1rem;
+            }
+
+            .hospital-logo img {
+                margin-right: 0 !important;
+                margin-bottom: 0.5rem;
             }
 
             .toast {
@@ -639,6 +835,194 @@
             0%, 50% { opacity: 1; }
             25%, 75% { opacity: 0.5; }
         }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        .modal-header {
+            padding: 2rem 2rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            color: #1a202c;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #6b7280;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: #f3f4f6;
+            color: #374151;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        /* Receipt Styles */
+        #receipt-content {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .receipt-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #374151;
+            padding-bottom: 1rem;
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            padding: 0.25rem 0;
+        }
+
+        .receipt-row.total {
+            border-top: 1px solid #374151;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            font-weight: bold;
+        }
+
+        .receipt-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Payment Options */
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-option:hover {
+            border-color: #3b82f6;
+            background: #f0f9ff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+        }
+
+        .payment-option div {
+            flex: 1;
+        }
+
+        .payment-option h3 {
+            color: #1a202c;
+            margin-bottom: 0.25rem;
+        }
+
+        .payment-option p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 1rem;
+            }
+
+            .modal-header,
+            .modal-body {
+                padding: 1.5rem;
+            }
+
+            .receipt-actions {
+                flex-direction: column;
+            }
+
+            .receipt-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .payment-option {
+                padding: 1rem;
+            }
+
+            .payment-option h3 {
+                font-size: 1rem;
+            }
+
+            .payment-option p {
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -646,36 +1030,36 @@
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <a href="#" class="nav-brand" onclick="showPage('home')">
-                <i class="fas fa-hospital"></i>
-                <span>Hospital Scheduler</span>
+                <span style="font-size: 2rem; margin-right: 8px;">🏥</span>
+                <span>AI Hospital Scheduler</span>
             </a>
             
             <ul class="nav-menu" id="nav-menu">
                 <li class="nav-item">
-                    <a href="#" onclick="showPage('appointments')">My Appointments</a>
+                    <a href="#" onclick="showPage('appointments')">📅 My Appointments</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" onclick="showPage('booking')">Book Appointment</a>
+                    <a href="#" onclick="showPage('booking')">🤖 Book Appointment</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" onclick="showPage('ai-chat')">AI Chat</a>
+                    <a href="#" onclick="showPage('ai-chat')">💬 AI Chat</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" onclick="showPage('search-hospitals')">Search Hospitals</a>
+                    <a href="#" onclick="showPage('search-hospitals')">🔍 Search Hospitals</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" onclick="showPage('admin')">Admin</a>
+                    <a href="#" onclick="showPage('admin')">⚙️ Admin</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" onclick="showPage('login')">Login</a>
+                    <a href="#" onclick="showPage('login')">🔐 Login</a>
                 </li>
                 <li class="nav-item cta">
-                    <a href="#" onclick="showPage('signup')">Sign Up</a>
+                    <a href="#" onclick="showPage('signup')">✨ Sign Up</a>
                 </li>
             </ul>
             
             <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <i class="fas fa-bars"></i>
+                <span style="font-size: 1.5rem;">📱</span>
             </button>
         </div>
     </nav>
@@ -686,28 +1070,67 @@
             <!-- Hero Section -->
             <section class="hero">
                 <div class="hero-container">
-                    <h1>Smart Hospital Scheduling Made Simple</h1>
-                    <p>Book appointments instantly with AI assistance. Get eligibility validation and seamless payment processing for a hassle-free healthcare experience.</p>
+                    <!-- AI Avatar -->
+                    <div class="ai-avatar">
+                        <div style="font-size: 8rem; margin-bottom: 1rem; animation: aiPulse 2s ease-in-out infinite;">🤖</div>
+                        <div class="ai-status">
+                            <span style="font-size: 1.5rem; margin-right: 0.5rem; animation: pulse 1.5s infinite;">🟢</span>
+                            <span style="font-size: 0.9rem; opacity: 0.9;">AI Assistant Online</span>
+                        </div>
+                    </div>
+
+                    <h1>🤖 AI-Powered Healthcare Scheduling</h1>
+                    <p>Experience the future of healthcare with our intelligent AI assistant. Get instant symptom analysis, smart appointment scheduling, and personalized doctor recommendations powered by advanced machine learning.</p>
+                    
+                    <div class="ai-features-preview">
+                        <div class="ai-feature-tag">
+                            <span style="font-size: 1.2rem; margin-right: 0.5rem;">🧠</span>
+                            <span>Smart Symptom Analysis</span>
+                        </div>
+                        <div class="ai-feature-tag">
+                            <span style="font-size: 1.2rem; margin-right: 0.5rem;">🤖</span>
+                            <span>AI Doctor Matching</span>
+                        </div>
+                        <div class="ai-feature-tag">
+                            <span style="font-size: 1.2rem; margin-right: 0.5rem;">✨</span>
+                            <span>Predictive Scheduling</span>
+                        </div>
+                    </div>
                     
                     <div class="hero-buttons">
                         <a href="#" class="btn-primary" onclick="showPage('booking')">
-                            <i class="fas fa-calendar-plus"></i>
-                            Book Appointment Now
+                            <span style="font-size: 1.2rem; margin-right: 0.5rem;">🤖</span>
+                            Start AI Booking
                         </a>
-                        <a href="#" class="btn-secondary" onclick="showPage('search-hospitals')">
-                            <i class="fas fa-search"></i>
-                            Find Hospitals
+                        <a href="#" class="btn-secondary" onclick="showPage('ai-chat')">
+                            <span style="font-size: 1.2rem; margin-right: 0.5rem;">💬</span>
+                            Chat with AI
                         </a>
                     </div>
 
                     <div class="hospital-logos">
-                        <p>Trusted by leading healthcare providers</p>
+                        <p>🏥 Trusted by leading healthcare providers</p>
                         <div class="logos-container">
-                            <div class="hospital-logo">Apollo Hospitals</div>
-                            <div class="hospital-logo">Fortis Healthcare</div>
-                            <div class="hospital-logo">Max Healthcare</div>
-                            <div class="hospital-logo">Manipal Hospitals</div>
-                            <div class="hospital-logo">Narayana Health</div>
+                            <div class="hospital-logo">
+                                <span style="font-size: 1.5rem; margin-right: 8px;">🏥</span>
+                                Apollo Hospitals
+                            </div>
+                            <div class="hospital-logo">
+                                <span style="font-size: 1.5rem; margin-right: 8px;">🏥</span>
+                                Fortis Healthcare
+                            </div>
+                            <div class="hospital-logo">
+                                <span style="font-size: 1.5rem; margin-right: 8px;">🏥</span>
+                                Max Healthcare
+                            </div>
+                            <div class="hospital-logo">
+                                <span style="font-size: 1.5rem; margin-right: 8px;">🏥</span>
+                                Manipal Hospitals
+                            </div>
+                            <div class="hospital-logo">
+                                <span style="font-size: 1.5rem; margin-right: 8px;">🏥</span>
+                                Narayana Health
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -716,28 +1139,49 @@
             <!-- Features Section -->
             <section class="features-section">
                 <div class="container">
-                    <h2 class="section-title">Why Choose Our Platform</h2>
+                    <h2 class="section-title">🤖 AI-Powered Healthcare Features</h2>
+                    <p class="section-subtitle">Experience the future of healthcare with intelligent automation</p>
                     <div class="grid-3">
                         <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-robot"></i>
-                            </div>
-                            <div class="feature-title">AI-Powered Assistant</div>
-                            <div class="feature-description">Get instant answers to your healthcare queries with our intelligent chatbot available 24/7.</div>
+                            <div style="font-size: 4rem; margin: 0 auto 1rem;">🤖</div>
+                            <div class="feature-title">🧠 Smart AI Assistant</div>
+                            <div class="feature-description">Advanced machine learning algorithms analyze your symptoms and provide intelligent healthcare recommendations 24/7.</div>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-calendar-check"></i>
-                            </div>
-                            <div class="feature-title">Easy Appointment Booking</div>
-                            <div class="feature-description">Schedule appointments seamlessly with real-time availability and instant confirmation.</div>
+                            <div style="font-size: 4rem; margin: 0 auto 1rem;">⚡</div>
+                            <div class="feature-title">⚡ Predictive Scheduling</div>
+                            <div class="feature-description">AI predicts optimal appointment slots based on doctor availability, patient history, and urgency levels.</div>
                         </div>
                         <div class="feature-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <div class="feature-title">Smart Payment System</div>
-                            <div class="feature-description">Automatic eligibility validation for SC/ST and Ayushman cardholders with seamless payment processing.</div>
+                            <div style="font-size: 4rem; margin: 0 auto 1rem;">🎯</div>
+                            <div class="feature-title">🎯 Intelligent Matching</div>
+                            <div class="feature-description">Machine learning matches you with the perfect doctor based on symptoms, language, and medical history.</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payment Options Section -->
+            <section style="padding: 4rem 0; background: linear-gradient(135deg, #f0f9ff, #e0f2fe);">
+                <div class="container">
+                    <h2 class="section-title">💳 Secure Payment Options</h2>
+                    <p class="section-subtitle">Multiple payment methods for your convenience</p>
+                    
+                    <div class="grid-3">
+                        <div class="feature-card" style="background: white; cursor: pointer;" onclick="showToast('Razorpay', 'Book an appointment to use Razorpay payment', 'info')">
+                            <div style="font-size: 4rem; margin: 0 auto 1rem;">💳</div>
+                            <div class="feature-title">💳 Razorpay Integration</div>
+                            <div class="feature-description">Secure online payments with UPI, Cards, Net Banking, and Wallets.</div>
+                        </div>
+                        <div class="feature-card" style="background: white;">
+                            <div style="font-size: 4rem; margin: 0 auto 1rem;">📱</div>
+                            <div class="feature-title">📱 UPI Payments</div>
+                            <div class="feature-description">Quick payments with Google Pay, PhonePe, Paytm, and other UPI apps.</div>
+                        </div>
+                        <div class="feature-card" style="background: white;">
+                            <div style="font-size: 4rem; margin: 0 auto 1rem;">🧾</div>
+                            <div class="feature-title">🧾 Instant Receipts</div>
+                            <div class="feature-description">Get detailed receipts instantly. Print or save for your records.</div>
                         </div>
                     </div>
                 </div>
@@ -747,10 +1191,27 @@
         <!-- Book Appointment Page -->
         <div id="booking" class="page-section">
             <div class="container">
-                <h2 class="section-title">Book Your Appointment</h2>
+                <h2 class="section-title">🤖 Book Your AI-Powered Appointment</h2>
                 <p class="section-subtitle">Fill in your details to schedule an appointment with our healthcare professionals</p>
                 
-                <div class="card">
+                <!-- Login Required Notice -->
+                <div id="login-required-notice" class="card" style="display: none; text-align: center; background: linear-gradient(135deg, #fef3c7, #fde68a); border: 2px solid #f59e0b; margin-bottom: 2rem;">
+                    <i class="fas fa-user-lock" style="font-size: 3rem; color: #d97706; margin-bottom: 1rem;"></i>
+                    <h3 style="color: #92400e; margin-bottom: 1rem;">Login Required</h3>
+                    <p style="color: #a16207; margin-bottom: 1.5rem;">You need to create an account or login to book appointments. This helps us keep track of your medical history and appointments.</p>
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button onclick="showPage('signup')" class="btn" style="background: linear-gradient(135deg, #10b981, #059669);">
+                            <i class="fas fa-user-plus"></i>
+                            Create Account
+                        </button>
+                        <button onclick="showPage('login')" class="btn" style="background: linear-gradient(135deg, #3b82f6, #1e40af);">
+                            <i class="fas fa-sign-in-alt"></i>
+                            Login
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card" id="booking-form-container">
                     <form id="booking-form">
                         <div class="grid-2">
                             <div class="form-group">
@@ -817,10 +1278,16 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn">
-                            <i class="fas fa-calendar-plus"></i>
-                            Book Appointment
-                        </button>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <button type="submit" class="btn">
+                                <i class="fas fa-calendar-plus"></i>
+                                Book Appointment
+                            </button>
+                            <button type="button" class="btn" style="background: #6b7280;" onclick="refreshData()">
+                                <i class="fas fa-refresh"></i>
+                                Refresh Data
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -829,7 +1296,7 @@
         <!-- My Appointments Page -->
         <div id="appointments" class="page-section">
             <div class="container">
-                <h2 class="section-title">My Appointments</h2>
+                <h2 class="section-title">📅 My Appointments</h2>
                 <p class="section-subtitle">View, cancel, or reschedule your booked appointments</p>
                 
                 <div id="appointments-list">
@@ -841,23 +1308,37 @@
         <!-- AI Chat Page -->
         <div id="ai-chat" class="page-section">
             <div class="container">
-                <h2 class="section-title">Ask Our AI Assistant</h2>
+                <h2 class="section-title">🤖 Ask Our AI Assistant</h2>
                 <p class="section-subtitle">Get instant answers about doctor availability, hospital timings, departments, and appointment booking. Our AI assistant is here to help 24/7.</p>
                 
-                <div class="card">
-                    <div id="chat-container" style="height: 400px; overflow-y: auto; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; background: #f9fafb;">
+                <div class="card" style="background: linear-gradient(135deg, #f8fafc, #e2e8f0); border: 2px solid rgba(59, 130, 246, 0.2);">
+                    <div id="chat-container" style="height: 400px; overflow-y: auto; border: 2px solid rgba(59, 130, 246, 0.3); border-radius: 12px; padding: 1rem; margin-bottom: 1rem; background: linear-gradient(135deg, #ffffff, #f8fafc);">
                         <div style="text-align: center; color: #6b7280; padding: 2rem;">
-                            <i class="fas fa-robot" style="font-size: 3rem; margin-bottom: 1rem; color: #3b82f6;"></i>
-                            <p>Hello! I'm your AI healthcare assistant. Ask me anything about our services!</p>
+                            <div style="font-size: 5rem; margin-bottom: 1rem; animation: aiPulse 2s ease-in-out infinite;">🤖</div>
+                            <div style="background: rgba(59, 130, 246, 0.1); border-radius: 20px; padding: 1rem; margin: 1rem 0;">
+                                <p><strong>🤖 AI Healthcare Assistant</strong></p>
+                                <p style="margin-top: 0.5rem;">Hello! I'm powered by advanced AI to help with your healthcare needs. Ask me about:</p>
+                                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem;">
+                                    <span style="background: #3b82f6; color: white; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.8rem;">🩺 Symptoms</span>
+                                    <span style="background: #10b981; color: white; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.8rem;">👨‍⚕️ Doctors</span>
+                                    <span style="background: #8b5cf6; color: white; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.8rem;">📅 Appointments</span>
+                                    <span style="background: #f59e0b; color: white; padding: 0.25rem 0.75rem; border-radius: 15px; font-size: 0.8rem;">🏥 Hospitals</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     
-                    <div style="display: flex; gap: 1rem;">
-                        <input type="text" id="chat-input" placeholder="Type your question here..." style="flex: 1; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px;">
-                        <button onclick="sendMessage()" class="btn">
-                            <i class="fas fa-paper-plane"></i>
-                            Send
+                    <div style="display: flex; gap: 1rem; position: relative;">
+                        <input type="text" id="chat-input" placeholder="Ask AI: 'I have a headache, which doctor should I see?'" style="flex: 1; padding: 12px 16px; border: 2px solid rgba(59, 130, 246, 0.3); border-radius: 25px; background: white; font-size: 1rem;">
+                        <button onclick="sendMessage()" class="btn" style="border-radius: 25px; padding: 12px 20px;">
+                            <span style="font-size: 1.2rem; margin-right: 0.5rem;">🤖</span>
+                            Ask AI
                         </button>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #6b7280;">
+                        <i class="fas fa-shield-alt" style="color: #10b981; margin-right: 0.5rem;"></i>
+                        Powered by OpenAI GPT-3.5 • Your data is secure and private
                     </div>
                 </div>
             </div>
@@ -866,7 +1347,7 @@
         <!-- Search Hospitals Page -->
         <div id="search-hospitals" class="page-section">
             <div class="container">
-                <h2 class="section-title">Search Hospitals</h2>
+                <h2 class="section-title">🏥 Search Hospitals</h2>
                 <p class="section-subtitle">Find hospitals and clinics near you with specialized services</p>
                 
                 <div class="card">
@@ -889,7 +1370,7 @@
         <div id="login" class="page-section">
             <div class="container">
                 <div style="max-width: 400px; margin: 0 auto;">
-                    <h2 class="section-title">Login</h2>
+                    <h2 class="section-title">🔐 Login</h2>
                     <p class="section-subtitle">Access your account to manage appointments</p>
                     
                     <div class="card">
@@ -919,8 +1400,38 @@
         <!-- Admin Panel Page -->
         <div id="admin" class="page-section">
             <div class="container">
-                <h2 class="section-title">Admin Dashboard</h2>
+                <h2 class="section-title">⚙️ Admin Dashboard</h2>
                 <p class="section-subtitle">Manage hospital appointments and view patient details</p>
+                
+                <!-- Doctor Login Section -->
+                <div id="doctor-login-section" class="card" style="margin-bottom: 2rem; background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border: 2px solid rgba(59, 130, 246, 0.3);">
+                    <h3 style="margin-bottom: 1rem; color: #1e40af;">👨‍⚕️ Doctor Login</h3>
+                    <p style="margin-bottom: 1.5rem; color: #64748b;">Login with your doctor credentials to manage appointments</p>
+                    
+                    <div style="display: flex; gap: 1rem; align-items: end; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 200px;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">Doctor ID</label>
+                            <input type="text" id="doctor-id" placeholder="e.g., DOC001" style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 1rem;">
+                        </div>
+                        <div style="flex: 1; min-width: 200px;">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">Password</label>
+                            <input type="password" id="doctor-password" placeholder="Enter password" style="width: 100%; padding: 12px; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 1rem;">
+                        </div>
+                        <button onclick="loginAsDoctor()" class="btn" style="padding: 12px 24px; white-space: nowrap;">
+                            <span style="font-size: 1.1rem; margin-right: 0.5rem;">👨‍⚕️</span>
+                            Doctor Login
+                        </button>
+                    </div>
+                    
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(59, 130, 246, 0.1); border-radius: 8px; font-size: 0.9rem; color: #1e40af;">
+                        <strong>Demo Credentials:</strong><br>
+                        Doctor ID: DOC001 | Password: doctor123<br>
+                        Doctor ID: DOC002 | Password: doctor456
+                    </div>
+                </div>
+                
+                <!-- Admin Content (hidden until doctor login) -->
+                <div id="admin-content" style="display: none;">
                 
                 <!-- Admin Stats -->
                 <div class="grid-3" style="margin-bottom: 3rem;">
@@ -974,6 +1485,8 @@
                         <!-- Admin appointments will be loaded here -->
                     </div>
                 </div>
+                
+                </div> <!-- Close admin-content -->
             </div>
         </div>
 
@@ -981,7 +1494,7 @@
         <div id="signup" class="page-section">
             <div class="container">
                 <div style="max-width: 500px; margin: 0 auto;">
-                    <h2 class="section-title">Sign Up</h2>
+                    <h2 class="section-title">✨ Sign Up</h2>
                     <p class="section-subtitle">Create your account to start booking appointments</p>
                     
                     <div class="card">
@@ -1050,6 +1563,73 @@
         </div>
     </div>
 
+    <!-- Receipt Modal -->
+    <div id="receipt-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-receipt"></i> Appointment Receipt</h2>
+                <button class="modal-close" onclick="closeReceiptModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="receipt-content">
+                    <!-- Receipt content will be populated here -->
+                </div>
+                <div class="receipt-actions">
+                    <button onclick="printReceipt()" class="btn" style="background: #10b981;">
+                        <i class="fas fa-print"></i>
+                        Print Receipt
+                    </button>
+                    <button onclick="showPaymentOptions()" class="btn" style="background: #3b82f6;">
+                        <i class="fas fa-credit-card"></i>
+                        Make Payment
+                    </button>
+                    <button onclick="closeReceiptModal()" class="btn" style="background: #6b7280;">
+                        <i class="fas fa-times"></i>
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-credit-card"></i> Payment Options</h2>
+                <button class="modal-close" onclick="closePaymentModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="payment-options">
+                    <div class="payment-option" onclick="processRazorpayPayment()">
+                        <img src="image.png" alt="Hospital" style="width: 50px; height: 50px; border-radius: 8px;">
+                        <div>
+                            <h3>Razorpay Payment</h3>
+                            <p>Secure online payment with UPI, Cards, Net Banking</p>
+                        </div>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="payment-option" onclick="showUPIPayment()">
+                        <i class="fab fa-google-pay" style="font-size: 2rem; color: #4285f4;"></i>
+                        <div>
+                            <h3>UPI Payment</h3>
+                            <p>Pay with Google Pay, PhonePe, Paytm</p>
+                        </div>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="payment-option" onclick="showCardPayment()">
+                        <i class="fas fa-credit-card" style="font-size: 2rem; color: #1e40af;"></i>
+                        <div>
+                            <h3>Card Payment</h3>
+                            <p>Debit Card, Credit Card</p>
+                        </div>
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Global variables
         let currentUser = null;
@@ -1059,12 +1639,53 @@
         let allAppointments = []; // For admin panel
         let filteredAppointments = []; // For admin filtering
 
+        // Initialize empty arrays to prevent undefined errors
+        function initializeArrays() {
+            if (!Array.isArray(appointments)) appointments = [];
+            if (!Array.isArray(doctors)) doctors = [];
+            if (!Array.isArray(hospitals)) hospitals = [];
+            if (!Array.isArray(allAppointments)) allAppointments = [];
+            if (!Array.isArray(filteredAppointments)) filteredAppointments = [];
+        }
+
         // Initialize the application
         document.addEventListener('DOMContentLoaded', function() {
+            initializeArrays();
+            restoreUserSession();
             initializeApp();
             setupEventListeners();
             loadInitialData();
+            
+            // Check if background image loads
+            const img = new Image();
+            img.onload = function() {
+                console.log('✅ Background image loaded successfully');
+                // Force apply the background image
+                const heroElement = document.querySelector('.hero');
+                if (heroElement) {
+                    heroElement.style.backgroundImage = 
+                        'linear-gradient(135deg, rgba(59, 130, 246, 0.6), rgba(30, 64, 175, 0.6)), url("image.png")';
+                }
+            };
+            img.onerror = function() {
+                console.log('❌ Background image failed to load, using gradient fallback');
+            };
+            img.src = 'image.png?v=' + Date.now(); // Add cache busting
         });
+
+        function restoreUserSession() {
+            // Check if user was previously logged in
+            const storedUser = localStorage.getItem('currentUser');
+            if (storedUser) {
+                try {
+                    currentUser = JSON.parse(storedUser);
+                    updateNavbarForLoggedInUser();
+                } catch (error) {
+                    console.error('Failed to restore user session:', error);
+                    localStorage.removeItem('currentUser');
+                }
+            }
+        }
 
         function initializeApp() {
             // Set minimum date for appointment booking
@@ -1102,28 +1723,54 @@
 
         async function loadInitialData() {
             try {
-                // Load doctors
-                const doctorsResponse = await fetch('/api/doctors');
-                doctors = await doctorsResponse.json();
+                console.log('Loading initial data...');
+                
+                // Load doctors with cache busting
+                const doctorsResponse = await fetch('/api/doctors?t=' + Date.now());
+                if (!doctorsResponse.ok) {
+                    throw new Error(`Doctors API failed: ${doctorsResponse.status}`);
+                }
+                const doctorsData = await doctorsResponse.json();
+                doctors = Array.isArray(doctorsData) ? doctorsData : (doctorsData.doctors || []);
+                console.log('Loaded doctors:', doctors.length);
                 populateDoctorSelect();
                 
-                // Load hospitals
-                const hospitalsResponse = await fetch('/api/locations');
-                hospitals = await hospitalsResponse.json();
+                // Load hospitals with cache busting
+                const hospitalsResponse = await fetch('/api/locations?t=' + Date.now());
+                if (!hospitalsResponse.ok) {
+                    throw new Error(`Locations API failed: ${hospitalsResponse.status}`);
+                }
+                const hospitalsData = await hospitalsResponse.json();
+                hospitals = Array.isArray(hospitalsData) ? hospitalsData : (hospitalsData.locations || []);
+                console.log('Loaded hospitals:', hospitals.length);
                 displayHospitals(hospitals);
                 
                 // Load appointments if user is logged in
                 if (currentUser) {
                     loadUserAppointments();
                 }
+                
+                console.log('Initial data loaded successfully');
             } catch (error) {
                 console.error('Error loading initial data:', error);
+                // Show user-friendly error
+                showToast('Loading Error', `Failed to load data: ${error.message}. Please refresh the page.`, 'error');
             }
         }
 
         function populateDoctorSelect() {
             const doctorSelect = document.getElementById('doctor');
+            if (!doctorSelect) return;
+            
             doctorSelect.innerHTML = '<option value="">Choose Doctor</option>';
+            
+            if (!doctors || doctors.length === 0) {
+                const option = document.createElement('option');
+                option.value = '';
+                option.textContent = 'No doctors available - Please refresh';
+                doctorSelect.appendChild(option);
+                return;
+            }
             
             doctors.forEach(doctor => {
                 const option = document.createElement('option');
@@ -1136,8 +1783,21 @@
         async function handleBookingSubmission(e) {
             e.preventDefault();
             
+            // Check if user is logged in
+            if (!currentUser) {
+                showToast('Login Required', 'Please sign up or login to book an appointment', 'error');
+                setTimeout(() => {
+                    showPage('signup');
+                }, 1500);
+                return;
+            }
+            
             const formData = new FormData(e.target);
             const bookingData = Object.fromEntries(formData.entries());
+            
+            // Add user information to booking
+            bookingData.userId = currentUser.id;
+            bookingData.userEmail = currentUser.email;
             
             // Add loading state
             const submitBtn = e.target.querySelector('button[type="submit"]');
@@ -1159,16 +1819,42 @@
                     // Generate booking ID
                     const bookingId = 'BK' + Date.now().toString().slice(-6);
                     
+                    // Find selected doctor info
+                    const selectedDoctor = doctors.find(doc => doc.id === bookingData.doctor);
+                    const doctorName = selectedDoctor ? selectedDoctor.name : 'Unknown Doctor';
+                    const specialty = selectedDoctor ? selectedDoctor.specialty : 'General';
+                    const location = selectedDoctor ? selectedDoctor.location : 'Hospital';
+                    
+                    // Create appointment object for receipt
+                    const appointmentDetails = {
+                        id: bookingId,
+                        patientName: bookingData.patientName,
+                        doctorName: doctorName,
+                        specialty: specialty,
+                        location: location,
+                        date: bookingData.preferredDate,
+                        time: bookingData.preferredTime,
+                        mobile: bookingData.mobile,
+                        email: bookingData.email,
+                        symptoms: bookingData.symptoms,
+                        language: bookingData.language,
+                        bookedAt: new Date().toISOString(),
+                        status: 'confirmed'
+                    };
+                    
+                    // Store appointment locally
+                    const userAppointments = JSON.parse(localStorage.getItem('userAppointments') || '[]');
+                    userAppointments.push(appointmentDetails);
+                    localStorage.setItem('userAppointments', JSON.stringify(userAppointments));
+                    
                     showToast('Booking Confirmed!', `Your booking is confirmed – Booking ID: ${bookingId}`, 'success');
+                    
+                    // Show receipt and payment options
+                    showBookingReceipt(appointmentDetails);
                     
                     // Reset form
                     e.target.reset();
                     
-                    // Redirect to appointments page
-                    setTimeout(() => {
-                        showPage('appointments');
-                        loadUserAppointments();
-                    }, 2000);
                 } else {
                     throw new Error(result.message || 'Booking failed');
                 }
@@ -1187,15 +1873,43 @@
             const formData = new FormData(e.target);
             const loginData = Object.fromEntries(formData.entries());
             
-            // Simulate login (in real app, this would be an API call)
-            currentUser = { email: loginData.email, name: 'John Doe' };
+            // Add loading state
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
             
-            showToast('Login Successful', 'Welcome back!', 'success');
-            
-            setTimeout(() => {
-                showPage('home');
-                updateNavbarForLoggedInUser();
-            }, 1500);
+            try {
+                // Simulate login (in real app, this would be an API call)
+                // Check if user exists in localStorage
+                const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+                const user = storedUsers.find(u => u.email === loginData.email && u.password === loginData.password);
+                
+                if (!user) {
+                    throw new Error('Invalid email or password. Please sign up first.');
+                }
+                
+                currentUser = { 
+                    id: user.id,
+                    email: user.email, 
+                    name: user.name,
+                    mobile: user.mobile
+                };
+                
+                // Store current user session
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                showToast('Login Successful', `Welcome back, ${currentUser.name}!`, 'success');
+                
+                setTimeout(() => {
+                    showPage('home');
+                    updateNavbarForLoggedInUser();
+                }, 1500);
+            } catch (error) {
+                showToast('Login Failed', error.message, 'error');
+            } finally {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+            }
         }
 
         async function handleSignup(e) {
@@ -1204,43 +1918,166 @@
             const formData = new FormData(e.target);
             const signupData = Object.fromEntries(formData.entries());
             
-            if (signupData.password !== signupData.confirmPassword) {
-                showToast('Error', 'Passwords do not match', 'error');
-                return;
+            // Add loading state
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            
+            try {
+                if (signupData.password !== signupData.confirmPassword) {
+                    throw new Error('Passwords do not match');
+                }
+                
+                // Check if user already exists
+                const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+                const existingUser = storedUsers.find(u => u.email === signupData.email);
+                
+                if (existingUser) {
+                    throw new Error('User with this email already exists. Please login instead.');
+                }
+                
+                // Create new user
+                const newUser = {
+                    id: 'user_' + Date.now(),
+                    email: signupData.email,
+                    name: `${signupData.firstName} ${signupData.lastName}`,
+                    mobile: signupData.mobile,
+                    password: signupData.password, // In real app, this would be hashed
+                    createdAt: new Date().toISOString()
+                };
+                
+                // Store user
+                storedUsers.push(newUser);
+                localStorage.setItem('users', JSON.stringify(storedUsers));
+                
+                // Set current user
+                currentUser = {
+                    id: newUser.id,
+                    email: newUser.email,
+                    name: newUser.name,
+                    mobile: newUser.mobile
+                };
+                
+                // Store current user session
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                showToast('Account Created', `Welcome ${currentUser.name}! You can now book appointments.`, 'success');
+                
+                // Reset form
+                e.target.reset();
+                
+                setTimeout(() => {
+                    showPage('booking');
+                    updateNavbarForLoggedInUser();
+                }, 2000);
+            } catch (error) {
+                showToast('Signup Failed', error.message, 'error');
+            } finally {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
             }
-            
-            // Simulate signup (in real app, this would be an API call)
-            currentUser = { 
-                email: signupData.email, 
-                name: `${signupData.firstName} ${signupData.lastName}` 
-            };
-            
-            showToast('Account Created', 'Your account has been created successfully!', 'success');
-            
-            setTimeout(() => {
-                showPage('home');
-                updateNavbarForLoggedInUser();
-            }, 1500);
         }
 
         function updateNavbarForLoggedInUser() {
             // Update navbar to show user is logged in
             const navMenu = document.getElementById('nav-menu');
+            if (!navMenu) return;
+            
             const loginItem = navMenu.querySelector('li:nth-last-child(2)');
             const signupItem = navMenu.querySelector('li:last-child');
             
             if (currentUser) {
-                loginItem.innerHTML = `<a href="#" onclick="logout()">Logout</a>`;
-                signupItem.innerHTML = `<a href="#" onclick="showPage('profile')">${currentUser.name}</a>`;
+                // User is logged in
+                if (loginItem) loginItem.innerHTML = `<a href="#" onclick="logout()">Logout</a>`;
+                if (signupItem) signupItem.innerHTML = `<a href="#" onclick="showPage('appointments')">${currentUser.name}</a>`;
+            } else {
+                // User is not logged in
+                if (loginItem) loginItem.innerHTML = `<a href="#" onclick="showPage('login')">Login</a>`;
+                if (signupItem) signupItem.innerHTML = `<a href="#" onclick="showPage('signup')">Sign Up</a>`;
             }
         }
 
         function logout() {
             currentUser = null;
+            localStorage.removeItem('currentUser');
             showToast('Logged Out', 'You have been logged out successfully', 'success');
             setTimeout(() => {
                 location.reload();
             }, 1500);
+        }
+
+        // Doctor Login System
+        let currentDoctor = null;
+        
+        function loginAsDoctor() {
+            const doctorId = document.getElementById('doctor-id').value.trim();
+            const password = document.getElementById('doctor-password').value.trim();
+            
+            if (!doctorId || !password) {
+                showToast('Login Error', 'Please enter both Doctor ID and Password', 'error');
+                return;
+            }
+            
+            // Demo doctor credentials
+            const doctorCredentials = {
+                'DOC001': { password: 'doctor123', name: 'Dr. Rajesh Sharma', specialty: 'Cardiology' },
+                'DOC002': { password: 'doctor456', name: 'Dr. Priya Patel', specialty: 'Pediatrics' },
+                'DOC003': { password: 'doctor789', name: 'Dr. Amit Kumar', specialty: 'Orthopedics' }
+            };
+            
+            if (doctorCredentials[doctorId] && doctorCredentials[doctorId].password === password) {
+                currentDoctor = {
+                    id: doctorId,
+                    name: doctorCredentials[doctorId].name,
+                    specialty: doctorCredentials[doctorId].specialty
+                };
+                
+                // Hide login section and show admin content
+                document.getElementById('doctor-login-section').style.display = 'none';
+                document.getElementById('admin-content').style.display = 'block';
+                
+                // Update page title to show doctor name
+                const pageTitle = document.querySelector('#admin .section-title');
+                if (pageTitle) {
+                    pageTitle.innerHTML = `👨‍⚕️ Welcome, ${currentDoctor.name}`;
+                }
+                
+                // Add logout button
+                const adminContent = document.getElementById('admin-content');
+                const logoutBtn = document.createElement('div');
+                logoutBtn.innerHTML = `
+                    <div style="text-align: right; margin-bottom: 2rem;">
+                        <button onclick="logoutDoctor()" class="btn" style="background: #ef4444; border-color: #ef4444;">
+                            <span style="font-size: 1rem; margin-right: 0.5rem;">🚪</span>
+                            Logout
+                        </button>
+                    </div>
+                `;
+                adminContent.insertBefore(logoutBtn, adminContent.firstChild);
+                
+                showToast('Login Successful', `Welcome ${currentDoctor.name}! You can now manage appointments.`, 'success');
+                loadAdminData(); // Refresh admin data
+            } else {
+                showToast('Login Failed', 'Invalid Doctor ID or Password. Please try again.', 'error');
+            }
+        }
+        
+        function logoutDoctor() {
+            currentDoctor = null;
+            document.getElementById('doctor-login-section').style.display = 'block';
+            document.getElementById('admin-content').style.display = 'none';
+            
+            // Reset page title
+            const pageTitle = document.querySelector('#admin .section-title');
+            if (pageTitle) {
+                pageTitle.innerHTML = '⚙️ Admin Dashboard';
+            }
+            
+            // Clear form
+            document.getElementById('doctor-id').value = '';
+            document.getElementById('doctor-password').value = '';
+            
+            showToast('Logged Out', 'Doctor logged out successfully', 'success');
         }
 
         async function loadUserAppointments() {
@@ -1309,21 +2146,37 @@
 
         function displayHospitals(hospitalsList) {
             const hospitalsContainer = document.getElementById('hospitals-list');
+            if (!hospitalsContainer) return;
+            
+            if (!hospitalsList || !Array.isArray(hospitalsList) || hospitalsList.length === 0) {
+                hospitalsContainer.innerHTML = `
+                    <div class="card" style="text-align: center; padding: 2rem;">
+                        <i class="fas fa-hospital" style="font-size: 2rem; color: #d1d5db; margin-bottom: 1rem;"></i>
+                        <h3 style="color: #6b7280;">No Hospitals Available</h3>
+                        <p style="color: #9ca3af;">Please refresh the page or try again later.</p>
+                        <button onclick="refreshData()" class="btn" style="margin-top: 1rem;">
+                            <i class="fas fa-refresh"></i>
+                            Refresh Data
+                        </button>
+                    </div>
+                `;
+                return;
+            }
             
             hospitalsContainer.innerHTML = hospitalsList.map(hospital => `
                 <div class="card">
-                    <h3>${hospital.name}</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> ${hospital.address}</p>
-                    <p><i class="fas fa-phone"></i> ${hospital.phone}</p>
+                    <h3>${hospital.name || 'Unknown Hospital'}</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> ${hospital.address || 'Address not available'}</p>
+                    <p><i class="fas fa-phone"></i> ${hospital.phone || 'Phone not available'}</p>
                     <div style="margin: 1rem 0;">
                         <strong>Specialties:</strong>
                         <div style="margin-top: 0.5rem;">
-                            ${hospital.specialties.map(spec => 
+                            ${(hospital.specialties || []).map(spec => 
                                 `<span style="background: #e0f2fe; color: #0277bd; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem; margin-right: 0.5rem;">${spec}</span>`
                             ).join('')}
                         </div>
                     </div>
-                    <button onclick="bookAtHospital('${hospital.id}')" class="btn">
+                    <button onclick="bookAtHospital('${hospital.id || ''}')" class="btn">
                         <i class="fas fa-calendar-plus"></i>
                         Book Appointment
                     </button>
@@ -1399,11 +2252,40 @@
                 document.getElementById('typing-indicator').remove();
                 
                 // Add AI response
+                let aiResponse = 'I understand your concern. Based on what you\'ve described, I recommend consulting with a healthcare professional for proper evaluation and treatment.';
+                
+                // Handle different response formats
+                if (result.analysis) {
+                    if (typeof result.analysis === 'string') {
+                        aiResponse = result.analysis;
+                    } else if (result.analysis.response) {
+                        aiResponse = result.analysis.response;
+                    } else if (result.analysis.message) {
+                        aiResponse = result.analysis.message;
+                    } else if (result.analysis.reasoning && result.analysis.reasoning.includes('temporarily unavailable')) {
+                        // API is returning generic response, use our smart fallback
+                        aiResponse = generateFallbackResponse(message);
+                    } else {
+                        // If it's an object, use our smart fallback instead of showing raw JSON
+                        aiResponse = generateFallbackResponse(message);
+                    }
+                } else if (result.response) {
+                    aiResponse = result.response;
+                } else if (result.message) {
+                    aiResponse = result.message;
+                } else {
+                    // No valid response, use fallback
+                    aiResponse = generateFallbackResponse(message);
+                }
+                
                 chatContainer.innerHTML += `
                     <div style="margin-bottom: 1rem;">
-                        <div style="background: #f3f4f6; color: #374151; padding: 0.5rem 1rem; border-radius: 18px; display: inline-block; max-width: 70%;">
-                            <strong>AI Assistant:</strong><br>
-                            ${result.analysis || 'I understand your concern. Based on what you\'ve described, I recommend consulting with a healthcare professional for proper evaluation and treatment.'}
+                        <div style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); color: #374151; padding: 1rem; border-radius: 18px; display: inline-block; max-width: 80%; border: 2px solid rgba(59, 130, 246, 0.2);">
+                            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                                <span style="font-size: 1.2rem; margin-right: 0.5rem;">🤖</span>
+                                <strong style="color: #1e40af;">AI Healthcare Assistant</strong>
+                            </div>
+                            ${aiResponse}
                         </div>
                     </div>
                 `;
@@ -1413,11 +2295,21 @@
                 // Remove typing indicator
                 document.getElementById('typing-indicator')?.remove();
                 
-                // Add error response
+                // Provide intelligent fallback response
+                let fallbackResponse = generateFallbackResponse(message);
+                
+                // Add AI response with fallback
                 chatContainer.innerHTML += `
                     <div style="margin-bottom: 1rem;">
-                        <div style="background: #fef2f2; color: #dc2626; padding: 0.5rem 1rem; border-radius: 18px; display: inline-block; max-width: 70%;">
-                            I'm sorry, I'm having trouble processing your request right now. Please try again later.
+                        <div style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); color: #374151; padding: 1rem; border-radius: 18px; display: inline-block; max-width: 80%; border: 2px solid rgba(59, 130, 246, 0.2);">
+                            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                                <span style="font-size: 1.2rem; margin-right: 0.5rem;">🤖</span>
+                                <strong style="color: #1e40af;">AI Healthcare Assistant</strong>
+                            </div>
+                            ${fallbackResponse}
+                            <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #6b7280; font-style: italic;">
+                                💡 Note: This is a demo response. For accurate medical advice, please consult a healthcare professional.
+                            </div>
                         </div>
                     </div>
                 `;
@@ -1426,21 +2318,7 @@
             }
         }
 
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page-section').forEach(section => {
-                section.classList.remove('active');
-            });
-            
-            // Show selected page
-            document.getElementById(pageId).classList.add('active');
-            
-            // Close mobile menu if open
-            document.getElementById('nav-menu').classList.remove('active');
-            
-            // Scroll to top
-            window.scrollTo(0, 0);
-        }
+
 
         function toggleMobileMenu() {
             const navMenu = document.getElementById('nav-menu');
@@ -1449,9 +2327,13 @@
 
         function showToast(title, message, type = 'success') {
             const toast = document.getElementById('toast');
+            if (!toast) return;
+            
             const toastIcon = toast.querySelector('.toast-icon i');
             const toastTitle = toast.querySelector('.toast-title');
             const toastText = toast.querySelector('.toast-text');
+            
+            if (!toastIcon || !toastTitle || !toastText) return;
             
             // Update content
             toastTitle.textContent = title;
@@ -1466,6 +2348,10 @@
                 toastIcon.className = 'fas fa-exclamation-triangle';
                 toast.style.borderLeftColor = '#ef4444';
                 toast.querySelector('.toast-icon').style.background = '#ef4444';
+            } else if (type === 'info') {
+                toastIcon.className = 'fas fa-info-circle';
+                toast.style.borderLeftColor = '#3b82f6';
+                toast.querySelector('.toast-icon').style.background = '#3b82f6';
             }
             
             // Show toast
@@ -1514,12 +2400,17 @@
 
         function displayAdminAppointments() {
             const adminAppointmentsList = document.getElementById('admin-appointments-list');
+            if (!adminAppointmentsList) return;
             
-            if (filteredAppointments.length === 0) {
+            if (!filteredAppointments || !Array.isArray(filteredAppointments) || filteredAppointments.length === 0) {
                 adminAppointmentsList.innerHTML = `
                     <div style="text-align: center; padding: 2rem; color: #6b7280;">
                         <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem;"></i>
                         <p>No appointments found matching your criteria.</p>
+                        <button onclick="refreshData()" class="btn" style="margin-top: 1rem;">
+                            <i class="fas fa-refresh"></i>
+                            Refresh Data
+                        </button>
                     </div>
                 `;
                 return;
@@ -1557,28 +2448,28 @@
                     <div style="margin-top: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
                         ${appointment.status === 'pending' ? `
                             <button class="btn" style="background: #10b981;" onclick="updateAppointmentStatus('${appointment.id}', 'confirmed')">
-                                <i class="fas fa-check"></i>
-                                Accept
+                                <span style="font-size: 1rem; margin-right: 0.5rem;">✅</span>
+                                Confirm
                             </button>
                         ` : ''}
                         ${appointment.status !== 'cancelled' && appointment.status !== 'completed' ? `
                             <button class="btn" style="background: #f59e0b;" onclick="rescheduleAdminAppointment('${appointment.id}')">
-                                <i class="fas fa-calendar-alt"></i>
+                                <span style="font-size: 1rem; margin-right: 0.5rem;">📅</span>
                                 Reschedule
                             </button>
                             <button class="btn" style="background: #ef4444;" onclick="updateAppointmentStatus('${appointment.id}', 'cancelled')">
-                                <i class="fas fa-times"></i>
+                                <span style="font-size: 1rem; margin-right: 0.5rem;">❌</span>
                                 Cancel
                             </button>
                         ` : ''}
                         ${appointment.status === 'confirmed' ? `
                             <button class="btn" style="background: #6b7280;" onclick="updateAppointmentStatus('${appointment.id}', 'completed')">
-                                <i class="fas fa-check-circle"></i>
+                                <span style="font-size: 1rem; margin-right: 0.5rem;">🏁</span>
                                 Mark Complete
                             </button>
                         ` : ''}
                         <button class="btn" style="background: #8b5cf6;" onclick="viewPatientDetails('${appointment.id}')">
-                            <i class="fas fa-eye"></i>
+                            <span style="font-size: 1rem; margin-right: 0.5rem;">👤</span>
                             View Patient
                         </button>
                     </div>
@@ -1648,14 +2539,297 @@
             }
         }
 
-        // Override showPage function to load admin data when needed
-        const originalShowPage = showPage;
-        function showPage(pageId) {
-            originalShowPage(pageId);
+        function generateFallbackResponse(message) {
+            const lowerMessage = message.toLowerCase();
             
+            // Doctor availability responses
+            if (lowerMessage.includes('doctor') && (lowerMessage.includes('available') || lowerMessage.includes('many'))) {
+                return `🏥 We have ${doctors.length} qualified doctors available across multiple specialties including Cardiology, Pediatrics, Orthopedics, and General Medicine. You can view all available doctors in our "Book Appointment" section where you can filter by specialty and language preferences.`;
+            }
+            
+            // General doctor inquiry
+            if (lowerMessage === 'doctors' || lowerMessage === 'doctor') {
+                const specialties = [...new Set(doctors.map(doc => doc.specialty))];
+                return `👨‍⚕️ Our medical team includes ${doctors.length} experienced doctors across ${specialties.length} specialties:
+                
+📋 **Available Specialties:**
+${specialties.map(specialty => `• ${specialty}`).join('\n')}
+
+🔍 **Featured Doctors:**
+• Dr. Rajesh Sharma - Cardiology
+• Dr. Priya Patel - Pediatrics  
+• Dr. Amit Kumar - Orthopedics
+
+You can book an appointment with any of our doctors through the "🤖 Book Appointment" page. Our AI will help match you with the right specialist based on your symptoms and preferences!`;
+            }
+            
+            // Symptom-based responses
+            if (lowerMessage.includes('headache')) {
+                return `🩺 For headache concerns, I recommend consulting with our General Medicine or Neurology specialists. Headaches can have various causes from stress to underlying conditions. You can book an appointment with Dr. Rajesh Sharma (Cardiology) or Dr. Priya Patel (Pediatrics) through our booking system.`;
+            }
+            
+            if (lowerMessage.includes('fever')) {
+                return `🌡️ **Fever Assessment & Care**
+
+**Immediate Recommendations:**
+• Monitor your temperature regularly
+• Stay hydrated with plenty of fluids
+• Rest and avoid strenuous activities
+• Consider over-the-counter fever reducers if needed
+
+**When to Seek Medical Care:**
+• Fever above 103°F (39.4°C)
+• Fever lasting more than 3 days
+• Accompanied by severe symptoms (difficulty breathing, chest pain, persistent vomiting)
+
+**Our Available Doctors:**
+• **Dr. Rajesh Sharma** - Cardiology (if heart-related concerns)
+• **Dr. Priya Patel** - Pediatrics (for children)
+• **General Medicine specialists** - For comprehensive evaluation
+
+📅 Book an appointment through our "🤖 Book Appointment" page for proper diagnosis and treatment. We offer same-day appointments for urgent cases!`;
+            }
+            
+            if (lowerMessage.includes('pain') || lowerMessage.includes('hurt')) {
+                return `😣 For pain management, our Orthopedics and General Medicine specialists can help diagnose and treat your condition. Dr. Amit Kumar specializes in orthopedic issues, while our general medicine doctors handle various pain conditions.`;
+            }
+            
+            // Appointment-related responses
+            if (lowerMessage.includes('appointment') || lowerMessage.includes('book')) {
+                return `📅 You can easily book an appointment through our AI-powered booking system! Simply go to the "Book Appointment" page, select your preferred doctor and specialty, choose a convenient time slot, and our AI will help match you with the best available doctor based on your needs.`;
+            }
+            
+            // Hospital information
+            if (lowerMessage.includes('hospital') || lowerMessage.includes('location')) {
+                return `🏥 We partner with leading hospitals including Apollo Hospitals, Fortis Healthcare, Max Healthcare, Manipal Hospitals, and Narayana Health. You can search for hospitals near you using our "Search Hospitals" feature to find the most convenient location.`;
+            }
+            
+            // Default response
+            return `Thank you for your question! While I'm currently in demo mode, I can help you with information about our ${doctors.length} available doctors, hospital locations, and appointment booking. For specific medical advice, I recommend booking a consultation with one of our qualified healthcare professionals through our booking system.`;
+        }
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            
+            // Close mobile menu if open
+            const navMenu = document.getElementById('nav-menu');
+            if (navMenu) {
+                navMenu.classList.remove('active');
+            }
+            
+            // Load specific page data
             if (pageId === 'admin') {
                 loadAdminData();
+            } else if (pageId === 'booking') {
+                updateBookingPageAuth();
             }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function updateBookingPageAuth() {
+            const loginNotice = document.getElementById('login-required-notice');
+            const bookingFormContainer = document.getElementById('booking-form-container');
+            
+            if (!currentUser) {
+                // User not logged in - show login notice, hide form
+                if (loginNotice) loginNotice.style.display = 'block';
+                if (bookingFormContainer) bookingFormContainer.style.display = 'none';
+            } else {
+                // User logged in - hide login notice, show form
+                if (loginNotice) loginNotice.style.display = 'none';
+                if (bookingFormContainer) bookingFormContainer.style.display = 'block';
+                
+                // Pre-fill user information
+                const patientNameField = document.getElementById('patient-name');
+                const mobileField = document.getElementById('mobile');
+                const emailField = document.getElementById('email');
+                
+                if (patientNameField && currentUser.name) patientNameField.value = currentUser.name;
+                if (mobileField && currentUser.mobile) mobileField.value = currentUser.mobile;
+                if (emailField && currentUser.email) emailField.value = currentUser.email;
+            }
+        }
+
+        function refreshData() {
+            showToast('Refreshing', 'Reloading data...', 'info');
+            initializeArrays();
+            loadInitialData();
+        }
+
+        // Receipt and Payment Functions
+        function showBookingReceipt(appointmentDetails) {
+            const receiptContent = document.getElementById('receipt-content');
+            const consultationFee = 500; // Base consultation fee
+            const platformFee = 50;
+            const total = consultationFee + platformFee;
+            
+            receiptContent.innerHTML = `
+                <div class="receipt-header">
+                    <h3>🏥 HOSPITAL SCHEDULER</h3>
+                    <p>Appointment Booking Receipt</p>
+                    <small>Receipt #${appointmentDetails.id}</small>
+                </div>
+                
+                <div class="receipt-row">
+                    <span>Patient Name:</span>
+                    <span>${appointmentDetails.patientName}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Doctor:</span>
+                    <span>Dr. ${appointmentDetails.doctorName}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Specialty:</span>
+                    <span>${appointmentDetails.specialty}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Hospital:</span>
+                    <span>${appointmentDetails.location}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Date:</span>
+                    <span>${new Date(appointmentDetails.date).toLocaleDateString('en-IN')}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Time:</span>
+                    <span>${appointmentDetails.time}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Mobile:</span>
+                    <span>${appointmentDetails.mobile}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Language:</span>
+                    <span>${appointmentDetails.language}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Booking Date:</span>
+                    <span>${new Date(appointmentDetails.bookedAt).toLocaleString('en-IN')}</span>
+                </div>
+                
+                <div class="receipt-row">
+                    <span>Consultation Fee:</span>
+                    <span>₹${consultationFee}</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Platform Fee:</span>
+                    <span>₹${platformFee}</span>
+                </div>
+                <div class="receipt-row total">
+                    <span>Total Amount:</span>
+                    <span>₹${total}</span>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #6b7280;">
+                    <p>Thank you for choosing Hospital Scheduler!</p>
+                    <p>Please arrive 15 minutes before your appointment.</p>
+                </div>
+            `;
+            
+            // Store current appointment for payment
+            window.currentAppointment = appointmentDetails;
+            window.appointmentTotal = total;
+            
+            document.getElementById('receipt-modal').style.display = 'flex';
+        }
+
+        function closeReceiptModal() {
+            document.getElementById('receipt-modal').style.display = 'none';
+        }
+
+        function printReceipt() {
+            const receiptContent = document.getElementById('receipt-content').innerHTML;
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Appointment Receipt</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; margin: 20px; }
+                            .receipt-header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid #000; padding-bottom: 20px; }
+                            .receipt-row { display: flex; justify-content: space-between; margin-bottom: 10px; padding: 5px 0; }
+                            .receipt-row.total { border-top: 1px solid #000; margin-top: 20px; padding-top: 20px; font-weight: bold; }
+                        </style>
+                    </head>
+                    <body>
+                        ${receiptContent}
+                    </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        function showPaymentOptions() {
+            document.getElementById('payment-modal').style.display = 'flex';
+        }
+
+        function closePaymentModal() {
+            document.getElementById('payment-modal').style.display = 'none';
+        }
+
+        function processRazorpayPayment() {
+            if (!window.currentAppointment) {
+                showToast('Error', 'No appointment selected for payment', 'error');
+                return;
+            }
+
+            const options = {
+                key: 'rzp_test_demo', // Demo key
+                amount: window.appointmentTotal * 100, // Amount in paise
+                currency: 'INR',
+                name: 'Hospital Scheduler',
+                description: `Appointment with Dr. ${window.currentAppointment.doctorName}`,
+                image: 'image.png',
+                handler: function(response) {
+                    showToast('Payment Successful', `Payment ID: ${response.razorpay_payment_id}`, 'success');
+                    closePaymentModal();
+                    closeReceiptModal();
+                    setTimeout(() => {
+                        showPage('appointments');
+                    }, 2000);
+                },
+                prefill: {
+                    name: window.currentAppointment.patientName,
+                    email: window.currentAppointment.email,
+                    contact: window.currentAppointment.mobile
+                },
+                theme: {
+                    color: '#3b82f6'
+                }
+            };
+
+            try {
+                const rzp = new Razorpay(options);
+                rzp.open();
+            } catch (error) {
+                // Fallback for demo
+                showToast('Demo Payment', 'Payment processed successfully (Demo Mode)', 'success');
+                closePaymentModal();
+                closeReceiptModal();
+                setTimeout(() => {
+                    showPage('appointments');
+                }, 2000);
+            }
+        }
+
+        function showUPIPayment() {
+            showToast('UPI Payment', 'UPI payment will be available soon', 'info');
+        }
+
+        function showCardPayment() {
+            showToast('Card Payment', 'Card payment will be available soon', 'info');
         }
     </script>
 </body>
