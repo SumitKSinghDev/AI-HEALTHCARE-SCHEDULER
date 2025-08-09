@@ -553,7 +553,38 @@ app.get('/health', (req, res) => {
 
 // Get appointments
 app.get('/api/appointments', (req, res) => {
-  res.json({ success: true, appointments });
+  res.json(appointments);
+});
+
+// Update appointment status (Admin function)
+app.put('/api/appointments/:id/status', (req, res) => {
+    try {
+        const appointmentId = req.params.id;
+        const { status } = req.body;
+        
+        const appointmentIndex = appointments.findIndex(apt => apt.id === appointmentId);
+        
+        if (appointmentIndex === -1) {
+            return res.status(404).json({ error: 'Appointment not found' });
+        }
+        
+        // Validate status
+        const validStatuses = ['pending', 'confirmed', 'completed', 'cancelled'];
+        if (!validStatuses.includes(status)) {
+            return res.status(400).json({ error: 'Invalid status' });
+        }
+        
+        appointments[appointmentIndex].status = status;
+        appointments[appointmentIndex].updatedAt = new Date().toISOString();
+        
+        res.json({ 
+            message: 'Appointment status updated successfully',
+            appointment: appointments[appointmentIndex]
+        });
+    } catch (error) {
+        console.error('Error updating appointment status:', error);
+        res.status(500).json({ error: 'Failed to update appointment status' });
+    }
 });
 
 // Get doctors with advanced filtering
