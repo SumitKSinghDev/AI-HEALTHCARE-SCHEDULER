@@ -525,7 +525,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ### **Transforming Healthcare Through AI Innovation**
 
-**[🚀 Live Demo](https://ai-health-suvidha-platform.vercel.app/)** | **[📚 Documentation](#documentation)** | **[🐛 Issues](https://github.com/SumitKSinghDev/AI-HEALTHCARE-SCHEDULER/issues)** | **[💬 Discussions](https://github.com/SumitKSinghDev/AI-HEALTHCARE-SCHEDULER/discussions)**
+**[🚀 Live Demo](https://ai-health-suvidha-platform.vercel.app/)** 
 
 ---
 
